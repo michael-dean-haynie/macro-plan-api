@@ -2,3 +2,5 @@ For now running the application throws a postgres hibernate error that looks lik
 "Caused by: java.sql.SQLFeatureNotSupportedException: Method org.postgresql.jdbc.PgConnection.createClob() is not yet implemented."
 
 Probable cause: https://vkuzel.com/spring-boot-jpa-hibernate-atomikos-postgresql-exception
+
+This project uses lombok so have fun getting that set up (;

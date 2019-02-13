@@ -34,7 +34,14 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			</dependency>
+		</dependency>
+		
+		<!-- Other Dependencies -->
+		<dependency>
+        	<groupId>org.projectlombok</groupId>
+	        <artifactId>lombok</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
 	</dependencies>
 
 	<build>
