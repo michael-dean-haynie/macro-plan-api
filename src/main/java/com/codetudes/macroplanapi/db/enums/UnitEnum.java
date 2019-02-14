@@ -21,5 +21,8 @@ public enum UnitEnum {
 	CUP,
 	PINT,
 	QUART,
-	GALLON
+	GALLON,
+	
+	/* Other */
+	GENERIC_ITEM
 }

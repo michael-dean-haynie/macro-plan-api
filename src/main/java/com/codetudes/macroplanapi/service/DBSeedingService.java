@@ -1,5 +1,11 @@
 package com.codetudes.macroplanapi.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +14,14 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import com.codetudes.macroplanapi.db.domain.Food;
+import com.codetudes.macroplanapi.db.domain.Measurement;
 import com.codetudes.macroplanapi.db.domain.Unit;
 import com.codetudes.macroplanapi.db.enums.UnitEnum;
 import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
 import com.codetudes.macroplanapi.db.enums.UnitTypeEnum;
+import com.codetudes.macroplanapi.db.repository.FoodRepository;
+import com.codetudes.macroplanapi.db.repository.MeasurementRepository;
 import com.codetudes.macroplanapi.db.repository.UnitRepository;
 
 @Service
@@ -21,8 +31,16 @@ public class DBSeedingService {
 	@Value("${macro-plan.seed-on-startup}")
 	private boolean seedOnStartup;
 	
+	private Map<UnitEnum, Unit> unitMap = new HashMap<>();
+	
 	@Autowired
 	private UnitRepository unitRepository;
+	
+	@Autowired
+	private MeasurementRepository measurementRepository;
+	
+	@Autowired
+	private FoodRepository foodRepository;
 	
 	@EventListener()
 	public void seedDatabase(ContextRefreshedEvent event) {
@@ -47,9 +65,26 @@ public class DBSeedingService {
 		createUnit(UnitSystemEnum.IMPERIAL, UnitTypeEnum.VOLUME, UnitEnum.PINT, "Pint", "pt", 16d);
 		createUnit(UnitSystemEnum.IMPERIAL, UnitTypeEnum.VOLUME, UnitEnum.QUART, "Quart", "qt", 32d);
 		createUnit(UnitSystemEnum.IMPERIAL, UnitTypeEnum.VOLUME, UnitEnum.GALLON, "Gallon", "gal", 128d);
+		
+		createUnit(UnitSystemEnum.GENERIC, UnitTypeEnum.ITEM, UnitEnum.GENERIC_ITEM, "", "", 1d);
+		
+		// Seed Food Entities (Templates)
+		List<Measurement> measurements = new ArrayList<>(); // re-used for every food
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
+		createFood(70, 5d, 0d, 6d, "Egg", "Great Value", "Large, White", measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 2d, false)});
+		createFood(100, 9d, 0d, 6d, "Bacon", "Tyson", "Hickory Smoked", measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false), createMeasurement(unitMap.get(UnitEnum.POUND), 1d, false)});
+		createFood(130, 5d, 12d, 8d, "Milk", "Great Value", "2% Reduced-Fat", measurements, true, true);
+		
+		
+		
 	}
 	
-	private Unit createUnit(UnitSystemEnum unitSystem, UnitTypeEnum unitType, UnitEnum unit, String properName, String abbriviation, Double unitTypeRatio) {
+	private void createUnit(UnitSystemEnum unitSystem, UnitTypeEnum unitType, UnitEnum unit, String properName, String abbriviation, Double unitTypeRatio) {
 		Unit unitEntity = new Unit();
 		unitEntity.setUnitSystem(unitSystem);
 		unitEntity.setUnitType(unitType);
@@ -57,6 +92,27 @@ public class DBSeedingService {
 		unitEntity.setProperName(properName);
 		unitEntity.setAbbreviation(abbriviation);
 		unitEntity.setUnitTypeRatio(unitTypeRatio);
-		return unitRepository.save(unitEntity);
+		unitMap.put(unit, unitRepository.save(unitEntity));
+	}
+	
+	private Measurement createMeasurement(Unit unit, Double value, Boolean saveImmediately) {
+		Measurement measurement = new Measurement();
+		measurement.setUnit(unit);
+		measurement.setValue(value);
+		return saveImmediately ? measurementRepository.save(measurement) : measurement;
+	}
+	
+	private Food createFood(Integer calories, Double fat, Double carbs, Double protein, String name, String brand, String styleOrFlavor, List<Measurement> measurements, Boolean isTemplate, Boolean saveImmediately) {
+		Food food = new Food();
+		food.setCalories(calories);
+		food.setFat(fat);
+		food.setCarbs(carbs);
+		food.setProtein(protein);
+		food.setName(name);
+		food.setBrand(brand);
+		food.setStyleOrFlavor(styleOrFlavor);
+		food.setMeasurements(measurements);
+		food.setIsTemplate(isTemplate);
+		return saveImmediately ? foodRepository.save(food) : food;
 	}
 }
