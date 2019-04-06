@@ -1,5 +1,7 @@
 package com.codetudes.macroplanapi.endpoint;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@PostMapping
-	public FoodDTO createFood(@RequestBody FoodDTO foodDTO) {
+	public FoodDTO createFood(@Valid @RequestBody FoodDTO foodDTO) {
 		return foodService.createFood(foodDTO);
 	}
 	

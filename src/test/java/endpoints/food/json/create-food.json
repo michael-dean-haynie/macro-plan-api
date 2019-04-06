@@ -1,0 +1,24 @@
+{
+	"calories": 9001,
+	"fat": 9000.1,
+	"carbs": 9000.1,
+	"protein": 9000.1,
+	"name": "Goku Juice",
+	"brand": "Dragon Ball Z",
+	"styleOrFlavor": "Astonishing",
+	"measurements": [
+		{
+			"unit": {
+				"id": 1,
+				"unitTypeRatio": 0.001,
+				"abbreviation": "mg",
+				"properName": "Milligram",
+				"unit": "MILLIGRAM",
+				"unitSystem": "METRIC",
+				"unitType": "MASS"
+			},
+			"value": 9000.1
+		}
+	],
+	"isTemplate": true
+}

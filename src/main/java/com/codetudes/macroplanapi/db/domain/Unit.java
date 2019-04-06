@@ -36,6 +36,6 @@ public class Unit {
 	
 	private String abbreviation;
 	
-	private Double UnitTypeRatio;
+	private Double unitTypeRatio;
 	
 }

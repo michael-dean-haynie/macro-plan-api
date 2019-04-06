@@ -18,6 +18,7 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 
 @KarateOptions(tags = {"~@ignore"})
+//@KarateOptions(tags = {"@focus"})
 public class TestParallel {
 
     @Test

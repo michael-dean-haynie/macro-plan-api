@@ -1,6 +1,6 @@
 Feature: Test the unit endpoints
 
-  Scenario: Get all units
+  Scenario: Get all units. Validate schema and count.
 		Given url 'http://localhost:8080/unit'
 		When method get
 		Then status 200
