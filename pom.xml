@@ -36,6 +36,26 @@
 			<artifactId>postgresql</artifactId>
 		</dependency>
 		
+		<!-- Karate Dependencies -->
+		<dependency>
+			<groupId>com.intuit.karate</groupId>
+			<artifactId>karate-apache</artifactId>
+			<version>0.9.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.intuit.karate</groupId>
+			<artifactId>karate-junit4</artifactId>
+			<version>0.9.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>net.masterthought</groupId>
+		    <artifactId>cucumber-reporting</artifactId>
+		    <version>3.8.0</version>
+		    <scope>test</scope>
+		</dependency>
+		
 		<!-- Other Dependencies -->
 		<dependency>
         	<groupId>org.projectlombok</groupId>
@@ -50,11 +70,28 @@
 	</dependencies>
 
 	<build>
+		<testResources>
+	        <testResource>
+	            <directory>src/test/java</directory>
+	            <excludes>
+	                <exclude>**/*.java</exclude>
+	            </excludes>
+	        </testResource>
+	    </testResources> 
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <configuration>
+		          <excludes>
+		            <exclude>**/TestParallel.java</exclude>
+		          </excludes>
+		        </configuration>
+		      </plugin>
 		</plugins>
 	</build>
 
