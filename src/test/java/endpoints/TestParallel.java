@@ -1,4 +1,4 @@
-package karate.endpoints;
+package endpoints;
 
 import static org.junit.Assert.assertTrue;
 

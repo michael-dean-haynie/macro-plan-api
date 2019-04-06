@@ -1,8 +1,8 @@
-package karate.endpoints.unit;
+package endpoints.food;
 
 import org.junit.runner.RunWith;
 
 import com.intuit.karate.junit4.Karate;
 
 @RunWith(Karate.class)
-public class UnitRunner {}
+public class FoodRunner {}
