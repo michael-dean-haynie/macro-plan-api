@@ -36,4 +36,35 @@ public class FoodServiceImpl implements FoodService {
 		}
 		return mapper.map(result.get(), FoodDTO.class);
 	}
+	
+	public FoodDTO updateFood(FoodDTO foodDTO) {
+		if (foodDTO.getId() == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		if (!foodRepository.existsById(foodDTO.getId())) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+		// Should not be able to update non-template foods
+		Optional<Food> result = foodRepository.findById(foodDTO.getId());
+		if (result.isPresent() && (!result.get().getIsTemplate())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		// Should not be able to change isTemplate field
+		Optional<Food> result2 = foodRepository.findById(foodDTO.getId());
+		if (result2.isPresent() && (result2.get().getIsTemplate() != foodDTO.getIsTemplate())) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		
+		return mapper.map(foodRepository.save(mapper.map(foodDTO, Food.class)), FoodDTO.class);
+	}
+	
+	public void deleteFood(Long id) {
+		if (!foodRepository.existsById(id)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		foodRepository.deleteById(id);
+	}
 }

@@ -7,4 +7,8 @@ public interface FoodService {
 	FoodDTO createFood(FoodDTO foodDTO);
 	
 	FoodDTO getFood(Long id);
+	
+	FoodDTO updateFood(FoodDTO foodDTO);
+	
+	void deleteFood(Long id);
 }

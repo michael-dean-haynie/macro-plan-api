@@ -1,0 +1,12 @@
+{
+	"unit": {
+		"id": 10,
+		"unitTypeRatio": 1,
+		"abbreviation": "fl oz",
+		"properName": "Fluid Ounce",
+		"unit": "FLUID_OUNCE",
+		"unitSystem": "IMPERIAL",
+		"unitType": "VOLUME"
+	},
+	"value": 9000.2
+}
