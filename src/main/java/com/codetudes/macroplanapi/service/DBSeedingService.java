@@ -66,7 +66,7 @@ public class DBSeedingService {
 		createUnit(UnitSystemEnum.IMPERIAL, UnitTypeEnum.VOLUME, UnitEnum.QUART, "Quart", "qt", 32d);
 		createUnit(UnitSystemEnum.IMPERIAL, UnitTypeEnum.VOLUME, UnitEnum.GALLON, "Gallon", "gal", 128d);
 		
-		createUnit(UnitSystemEnum.GENERIC, UnitTypeEnum.ITEM, UnitEnum.GENERIC_ITEM, "", "", 1d);
+		createUnit(UnitSystemEnum.GENERIC, UnitTypeEnum.ITEM, UnitEnum.GENERIC_ITEM, "Item", "item", 1d);
 		
 		// Seed Food Entities (Templates)
 		List<Measurement> measurements = new ArrayList<>(); // re-used for every food
