@@ -24,10 +24,8 @@ public class UnitDTO {
 	@NotNull
 	private UnitEnum unit;
 	
-	@NotBlank
 	private String properName;
 	
-	@NotBlank
 	private String abbreviation;
 	
 	@NotNull
