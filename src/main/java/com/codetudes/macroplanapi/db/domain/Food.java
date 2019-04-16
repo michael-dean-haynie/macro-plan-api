@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Formula;
+
 import lombok.Data;
 
 @Data
@@ -38,4 +40,16 @@ public class Food {
 	private List<Measurement> measurements;
 	
 	private Boolean isTemplate;
+	
+	/**
+	 * Calculated fields (not returned, just used for sorting)
+	 */
+	@Formula("(fat * 9) / ((fat * 9) + (carbs * 4) + (protein * 4)) * 100")
+	private Double fatPercentage;
+	
+	@Formula("(carbs * 4) / ((fat * 9) + (carbs * 4) + (protein * 4)) * 100")
+	private Double carbsPercentage;
+	
+	@Formula("(protein * 4) / ((fat * 9) + (carbs * 4) + (protein * 4)) * 100")
+	private Double proteinPercentage;
 }
