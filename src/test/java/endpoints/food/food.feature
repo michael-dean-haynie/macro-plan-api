@@ -58,12 +58,6 @@ Feature: Test the food endpoints
 		| measurements[0].unit.unitSystem    | null  |
 		| measurements[0].unit.unitType      | null  |
 		| measurements[0].unit.unit          | null  |
-		| measurements[0].unit.properName    | null  |
-		| measurements[0].unit.properName    | ''    |
-		| measurements[0].unit.properName    | ' '   |
-		| measurements[0].unit.abbreviation  | null  |
-		| measurements[0].unit.abbreviation  | ''    |
-		| measurements[0].unit.abbreviation  | ' '   |
 		| measurements[0].unit.unitTypeRatio | null  |
 		| measurements                       | null  |
 		| measurements                       | []    |
@@ -76,7 +70,7 @@ Feature: Test the food endpoints
 		* method post
 		* status 200
 	
-		# Get save food that was just created
+		# Get same food that was just created
 		Given path 'food', response.id
 		When method get
 		Then status 200
