@@ -11,7 +11,7 @@ Currently no great solution for running unit tests (if there were any)
 
 ## Running Karate Tests
 * Start api endpoints
-* Run karate tests in eclipse (mvn test does not work for now: [related issue on stack-overflow](https://stackoverflow.com/questions/53010200/maven-surefire-could-not-find-forkedbooter-class))
+* Run karate tests in eclipse (mvn test does not work for now: [related issue on stack-overflow](https://stackoverflow.com/questions/53010200/maven-surefire-could-not-find-forkedbooter-class)).
     * Right click /src/test/java/endpoints/TestParallel.java and run as JUnit test
     * OR use a run maven run configuration like `test -Dtest=TestParallel`
 
