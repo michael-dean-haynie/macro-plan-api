@@ -14,13 +14,13 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
-import com.codetudes.macroplanapi.db.domain.Food;
+import com.codetudes.macroplanapi.db.domain.FoodTemplate;
 import com.codetudes.macroplanapi.db.domain.Measurement;
 import com.codetudes.macroplanapi.db.domain.Unit;
 import com.codetudes.macroplanapi.db.enums.UnitEnum;
 import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
 import com.codetudes.macroplanapi.db.enums.UnitTypeEnum;
-import com.codetudes.macroplanapi.db.repository.FoodRepository;
+import com.codetudes.macroplanapi.db.repository.FoodTemplateRepository;
 import com.codetudes.macroplanapi.db.repository.MeasurementRepository;
 import com.codetudes.macroplanapi.db.repository.UnitRepository;
 
@@ -40,7 +40,7 @@ public class DBSeedingService {
 	private MeasurementRepository measurementRepository;
 	
 	@Autowired
-	private FoodRepository foodRepository;
+	private FoodTemplateRepository foodTemplateRepository;
 	
 	@EventListener()
 	public void seedDatabase(ContextRefreshedEvent event) {
@@ -68,56 +68,56 @@ public class DBSeedingService {
 		
 		createUnit(UnitSystemEnum.GENERIC, UnitTypeEnum.ITEM, UnitEnum.GENERIC_ITEM, "Item", "item(s)", 1d);
 		
-		// Seed Food Entities (Templates)
+		// Seed FoodTemplate Entities (Templates)
 		List<Measurement> measurements = new ArrayList<>(); // re-used for every food
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
-		createFood(70, 5d, 0d, 6d, "Eggs", "Great Value", "Large, White", measurements, true, true);
+		createFoodTemplate(70, 5d, 0d, 6d, "Eggs", "Great Value", "Large, White", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 2d, false)});
-		createFood(100, 9d, 0d, 6d, "Bacon", "Tyson", "Hickory Smoked", measurements, true, true);
+		createFoodTemplate(100, 9d, 0d, 6d, "Bacon", "Tyson", "Hickory Smoked", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false)});
-		createFood(130, 5d, 12d, 8d, "Milk", "Great Value", "2% Reduced-Fat", measurements, true, true);
+		createFoodTemplate(130, 5d, 12d, 8d, "Milk", "Great Value", "2% Reduced-Fat", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 17d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 28d, false)});
-		createFood(110, 1d, 23d, 2d, "Pretzels", "Rold Gold", "Tiny Twists, Original", measurements, true, true);
+		createFoodTemplate(110, 1d, 23d, 2d, "Pretzels", "Rold Gold", "Tiny Twists, Original", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 27d, false)});
-		createFood(90, 2d, 11d, 10d, "Protein Bars", "Protein One", "Strawberries & Cream", measurements, true, true);
+		createFoodTemplate(90, 2d, 11d, 10d, "Protein Bars", "Protein One", "Strawberries & Cream", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 26d, false)});
-		createFood(70, 1.5d, 12d, 4d, "Sandwich Bread", "Nature's Own", "100% Whole Grain", measurements, true, true);
+		createFoodTemplate(70, 1.5d, 12d, 4d, "Sandwich Bread", "Nature's Own", "100% Whole Grain", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 90d, false)});
-		createFood(260, 12d, 36d, 2d, "Drumsticks", "Nestle", "Crunch Dipped, Vanilla", measurements, true, true);
+		createFoodTemplate(260, 12d, 36d, 2d, "Drumsticks", "Nestle", "Crunch Dipped, Vanilla", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 95d, false)});
-		createFood(280, 12d, 41d, 2d, "Drumsticks", "Nestle", "Crunch Dipped, Vanilla Caramel", measurements, true, true);
+		createFoodTemplate(280, 12d, 41d, 2d, "Drumsticks", "Nestle", "Crunch Dipped, Vanilla Caramel", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 94d, false)});
-		createFood(280, 13d, 39d, 2d, "Drumsticks", "Nestle", "Crunch Dipped, Vanilla Fudge", measurements, true, true);
+		createFoodTemplate(280, 13d, 39d, 2d, "Drumsticks", "Nestle", "Crunch Dipped, Vanilla Fudge", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.TABLE_SPOON), 1d, false)});
-		createFood(15, 0d, 3d, 0d, "Sweet Relish", "Heinz", null, measurements, true, true);
+		createFoodTemplate(15, 0d, 3d, 0d, "Sweet Relish", "Heinz", null, measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.TABLE_SPOON), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 13d, false)});
-		createFood(90, 10d, 0d, 0d, "Mayonnaise", "Kraft", null, measurements, true, true);
+		createFoodTemplate(90, 10d, 0d, 0d, "Mayonnaise", "Kraft", null, measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.CUP), .33d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 85d, false)});
-		createFood(100, 3.5d, 0d, 16d, "Tuna", "StarKist", "Chunk Light", measurements, true, true);
+		createFoodTemplate(100, 3.5d, 0d, 16d, "Tuna", "StarKist", "Chunk Light", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 2d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 85d, false)});
-		createFood(15, 0d, 4d, 1d, "Celery Sticks", "Dandy", null, measurements, true, true);
+		createFoodTemplate(15, 0d, 4d, 1d, "Celery Sticks", "Dandy", null, measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 172d, false)});
-		createFood(98, 0.2d, 24d, 0.4d, "Apples", null, "Gala", measurements, true, true);
+		createFoodTemplate(98, 0.2d, 24d, 0.4d, "Apples", null, "Gala", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 112d, false)});
-		createFood(140, 4d, 0d, 25d, "Chicken Breasts", "Great Value", "Boneless, Skinnless, with rib meat", measurements, true, true);
+		createFoodTemplate(140, 4d, 0d, 25d, "Chicken Breasts", "Great Value", "Boneless, Skinnless, with rib meat", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 158d, false)});
-		createFood(205, .4d, 44.5d, 4.2d, "Rice", "Great Value", "White, long-grain, cooked", measurements, true, true);
+		createFoodTemplate(205, .4d, 44.5d, 4.2d, "Rice", "Great Value", "White, long-grain, cooked", measurements, true, true);
 		
 		
 	}
@@ -140,17 +140,17 @@ public class DBSeedingService {
 		return saveImmediately ? measurementRepository.save(measurement) : measurement;
 	}
 	
-	private Food createFood(Integer calories, Double fat, Double carbs, Double protein, String name, String brand, String styleOrFlavor, List<Measurement> measurements, Boolean isTemplate, Boolean saveImmediately) {
-		Food food = new Food();
-		food.setCalories(calories);
-		food.setFat(fat);
-		food.setCarbs(carbs);
-		food.setProtein(protein);
-		food.setName(name);
-		food.setBrand(brand);
-		food.setStyleOrFlavor(styleOrFlavor);
-		food.setMeasurements(measurements);
-		food.setIsTemplate(isTemplate);
-		return saveImmediately ? foodRepository.save(food) : food;
+	private FoodTemplate createFoodTemplate(Integer calories, Double fat, Double carbs, Double protein, String name, String brand, String styleOrFlavor, List<Measurement> measurements, Boolean isTemplate, Boolean saveImmediately) {
+		FoodTemplate foodTemplate = new FoodTemplate();
+		foodTemplate.setCalories(calories);
+		foodTemplate.setFat(fat);
+		foodTemplate.setCarbs(carbs);
+		foodTemplate.setProtein(protein);
+		foodTemplate.setName(name);
+		foodTemplate.setBrand(brand);
+		foodTemplate.setStyleOrFlavor(styleOrFlavor);
+		foodTemplate.setMeasurements(measurements);
+		foodTemplate.setIsTemplate(isTemplate);
+		return saveImmediately ? foodTemplateRepository.save(foodTemplate) : foodTemplate;
 	}
 }

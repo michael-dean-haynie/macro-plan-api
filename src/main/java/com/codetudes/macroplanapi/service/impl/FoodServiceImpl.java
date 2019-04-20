@@ -14,9 +14,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.codetudes.macroplanapi.contract.FoodDTO;
 import com.codetudes.macroplanapi.contract.UnitDTO;
-import com.codetudes.macroplanapi.db.domain.Food;
+import com.codetudes.macroplanapi.db.domain.FoodTemplate;
 import com.codetudes.macroplanapi.db.domain.Unit;
-import com.codetudes.macroplanapi.db.repository.FoodRepository;
+import com.codetudes.macroplanapi.db.repository.FoodTemplateRepository;
 import com.codetudes.macroplanapi.service.FoodService;
 
 @Service
@@ -26,17 +26,17 @@ public class FoodServiceImpl implements FoodService {
 	private ModelMapper mapper;
 	
 	@Autowired
-	FoodRepository foodRepository;
+	FoodTemplateRepository foodTemplateRepository;
 	
 	@Override
 	public FoodDTO createFood(FoodDTO foodDTO) {
-		return mapper.map(foodRepository.save(mapper.map(foodDTO, Food.class)), FoodDTO.class);
+		return mapper.map(foodTemplateRepository.save(mapper.map(foodDTO, FoodTemplate.class)), FoodDTO.class);
 	}
 	
 	@Override
 	public FoodDTO getFood(Long id) {
 		// TODO look into .ifPresent on Optional
-		Optional<Food> result = foodRepository.findById(id);
+		Optional<FoodTemplate> result = foodTemplateRepository.findById(id);
 		if (!result.isPresent()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
@@ -49,31 +49,31 @@ public class FoodServiceImpl implements FoodService {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		
-		if (!foodRepository.existsById(foodDTO.getId())) {
+		if (!foodTemplateRepository.existsById(foodDTO.getId())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 		
 		// Should not be able to update non-template foods
-		Optional<Food> result = foodRepository.findById(foodDTO.getId());
+		Optional<FoodTemplate> result = foodTemplateRepository.findById(foodDTO.getId());
 		if (result.isPresent() && (!result.get().getIsTemplate())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		
 		// Should not be able to change isTemplate field
-		Optional<Food> result2 = foodRepository.findById(foodDTO.getId());
+		Optional<FoodTemplate> result2 = foodTemplateRepository.findById(foodDTO.getId());
 		if (result2.isPresent() && (result2.get().getIsTemplate() != foodDTO.getIsTemplate())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
 		
-		return mapper.map(foodRepository.save(mapper.map(foodDTO, Food.class)), FoodDTO.class);
+		return mapper.map(foodTemplateRepository.save(mapper.map(foodDTO, FoodTemplate.class)), FoodDTO.class);
 	}
 	
 	@Override
 	public void deleteFood(Long id) {
-		if (!foodRepository.existsById(id)) {
+		if (!foodTemplateRepository.existsById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
-		foodRepository.deleteById(id);
+		foodTemplateRepository.deleteById(id);
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public class FoodServiceImpl implements FoodService {
 		}
 		
 		Sort sortSpec = new Sort(sortDirection, sortField);
-		List<Food> result = foodRepository.findAllTemplatesWithSearchAndSort(searchTerm, sortSpec);
+		List<FoodTemplate> result = foodTemplateRepository.findAllTemplatesWithSearchAndSort(searchTerm, sortSpec);
 		
 		Type dtoListType = new TypeToken<List<FoodDTO>>(){}.getType();
 		return mapper.map(result, dtoListType);
