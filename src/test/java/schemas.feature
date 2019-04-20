@@ -9,8 +9,8 @@ Feature: Prepare schemas
 			unitSystem: '#string',
 			unitType: '#string',
 			unit: '#string',
-			properName: '#string',
-			abbreviation: '#string',
+			properName: '##string',
+			abbreviation: '##string',
 			unitTypeRatio: '#number'
 		}
 		"""
@@ -33,9 +33,30 @@ Feature: Prepare schemas
 			carbs: '#number',
 			protein: '#number',
 			name: '#string',
-			brand: '#string',
-			styleOrFlavor: '#string',
+			brand: '##string',
+			styleOrFlavor: '##string',
 			measurements: '#[] schemas.measurement',
-			isTemplate: '#boolean'
+			isTemplate: false
+		}
+		"""
+		
+		# ------------------------------------------------
+		# Templates
+		# ------------------------------------------------
+		# TODO: figure out if I can use some kind of inheritance like karate's 'copy' keyword
+		
+		* set schemas.foodTemplate =
+		"""
+		{
+			id: '#number',
+			calories: '#number',
+			fat: '#number',
+			carbs: '#number',
+			protein: '#number',
+			name: '#string',
+			brand: '##string',
+			styleOrFlavor: '##string',
+			measurements: '#[] schemas.measurement',
+			isTemplate: true
 		}
 		"""

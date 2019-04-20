@@ -1,24 +1,24 @@
-Feature: Test the food endpoints
+Feature: Test the /food endpoints. These endpoints should only directly modify food templates
 
 	Background:
 		* url baseUrl
 
-	Scenario: Successfully create a food using existing unit. Validate schema and values.
+	Scenario: Successfully create a food template using existing unit. Validate schema and values.
 		#	Get units	 
 		* path 'unit'
 		* method get
 		* def units = response
 		
-		# Create a food
+		# Create a food temlate
 		* path 'food'
-		* def payload = read('classpath:endpoints/food/json/happy-path-food.json')
+		* def payload = read('classpath:endpoints/food/json/food-template.json')
 		* set payload.measurements = [{unit: '#(units[0])', value: 42}]
 		Given request payload
 		When method post
 		Then status 200
 		
 		# Validate schema
-		* match response == schemas.food
+		* match response == schemas.foodTemplate
 		
 		# Validate Values
 		* assert response.calories == payload.calories
@@ -32,13 +32,13 @@ Feature: Test the food endpoints
 		* assert response.measurements[0].value == payload.measurements[0].value
 		* assert response.isTemplate == payload.isTemplate
 		
-		# Delete food that was just created
+		# Delete food template that was just created
 		* path 'food', response.id
 		* method delete
 		* status 200
 		
-	Scenario Outline: Fail to create food due invalid field (<fieldName> = <value>)
-		* def payload = read('classpath:endpoints/food/json/happy-path-food.json')
+	Scenario Outline: Fail to create food template due invalid field (<fieldName> = <value>)
+		* def payload = read('classpath:endpoints/food/json/food-template.json')
 		* set payload.<fieldName> = <value>
 		* path 'food'
 		Given request payload
@@ -63,40 +63,40 @@ Feature: Test the food endpoints
 		| measurements                       | []    |
 		| isTemplate                         | null  |
 		
-	Scenario: Successfully get a food
-		# First, create a food
+	Scenario: Successfully get a food template
+		# First, create a food template
 		* path 'food'
-		* request read('classpath:endpoints/food/json/happy-path-food.json')
+		* request read('classpath:endpoints/food/json/food-template.json')
 		* method post
 		* status 200
 	
-		# Get same food that was just created
+		# Get same food template that was just created
 		Given path 'food', response.id
 		When method get
 		Then status 200
-		And match response == schemas.food
+		And match response == schemas.foodTemplate
 		
-		# Delete food that was just created
+		# Delete food template that was just created
 		* path 'food', response.id
 		* method delete
 		* status 200
 		
-	Scenario: Fail to get a food that does not exist
+	Scenario: Fail to get a food template that does not exist
 		Given path 'food', 999999999
 		When method get
 		Then status 404
 		
-	Scenario Outline: Fail or succeed to update a template food (set payload.<fieldName> = <value> and expect <status>)
-		# Create a food
+	Scenario Outline: Fail or succeed to update a food template (set payload.<fieldName> = <value> and expect <status>)
+		# Create a food template
 		* path 'food'
-		* request read('classpath:endpoints/food/json/template-food.json')
+		* request read('classpath:endpoints/food/json/food-template.json')
 		* method post
 		* status 200
 		* def createResponse = response
 		
-		# Update the food that was just created
+		# Update the food template that was just created
 		Given path 'food'
-		* def payload = read('classpath:endpoints/food/json/template-food.json')
+		* def payload = read('classpath:endpoints/food/json/food-template.json')
 		* set payload.id = response.id
 		* set payload.<fieldName> = <value>
 		* request payload
@@ -104,7 +104,7 @@ Feature: Test the food endpoints
 		Then status <status>
 		* assert (responseStatus != 200) || (response.<fieldName> == <value>)
 		
-		# Delete food that was just created
+		# Delete food template that was just created
 		* path 'food', createResponse.id
 		* method delete
 		* status 200
@@ -120,33 +120,13 @@ Feature: Test the food endpoints
 		| name          | createResponse.carbs + 'abc'         | 200    |
 		| brand         | createResponse.brand + 'abc'         | 200    |
 		| styleOrFlavor | createResponse.styleOrFlavor + 'abc' | 200    |
+		| isTemplate    | null                                 | 400    |
+		| isTemplate    | false                                | 400    |
 		
-	Scenario: Fail to update isTemplate field on template food
-		# Create a food
+	Scenario: Successfully update food template measurements
+		# Create a food template
 		* path 'food'
-		* request read('classpath:endpoints/food/json/template-food.json')
-		* method post
-		* status 200
-		* def createResponse = response
-		
-		# Try to update the isTemplate field on the food that was just created
-		Given path 'food'
-		* def payload = read('classpath:endpoints/food/json/template-food.json')
-		* set payload.id = response.id
-		* set payload.isTemplate = false
-		* request payload
-		When method put
-		Then status 400
-		
-		# Delete food that was just created
-		* path 'food', createResponse.id
-		* method delete
-		* status 200
-		
-	Scenario: Successfully update template food measurements
-		# Create a food
-		* path 'food'
-		* request read('classpath:endpoints/food/json/template-food.json')
+		* request read('classpath:endpoints/food/json/food-template.json')
 		* method post
 		* status 200
 		* def createResponse = response
@@ -169,56 +149,52 @@ Feature: Test the food endpoints
 		Then status 200
 		* match response.measurements == '#[1] schemas.measurement'
 		
-		# Delete food that was just created
-		* path 'food', createResponse.id
-		* method delete
-		* status 200
-		
-	Scenario: Fail to update non-template food
-		# Create a food
-		* path 'food'
-		* request read('classpath:endpoints/food/json/non-template-food.json')
-		* method post
-		* status 200
-		* def createResponse = response
-		
-		# Try to update the non-template food that was just created
+		# Update one of the measurements (update ammount)
 		Given path 'food'
 		* def payload = response
-		* set payload.calories = response.calories + 1
+		* set payload.measurements[0].value = response.measurements[0].value + 1
 		* request payload
 		When method put
-		Then status 400
+		Then status 200
+		* match response.measurements[0].value == payload.measurements[0].value
 		
-		# Delete food that was just created
+		# Delete food template that was just created
 		* path 'food', createResponse.id
 		* method delete
 		* status 200
+		
+	Scenario: Fail to update food (non-template)
+		# Try to update a food (non-template) 
+		Given path 'food'
+		* def payload = read('classpath:endpoints/food/json/food.json')
+		* request payload
+		When method put
+		Then status 400 # not 404 cause it should fail validation before db is queried for existance
 	
-	Scenario: Successfully delete food
-		# Create a food
+	Scenario: Successfully delete food template
+		# Create a food tempate
 		* path 'food'
-		Given request read('classpath:endpoints/food/json/happy-path-food.json')
+		Given request read('classpath:endpoints/food/json/food-template.json')
 		When method post
 		Then status 200
 		* def createdFoodId = response.id
 		
-		# Get food that was just created
+		# Get food template that was just created
 		* path 'food', createdFoodId
 		When method get
 		Then status 200
 		
-		# Delete food that was just created
+		# Delete food template that was just created
 		* path 'food', createdFoodId
 		When method delete
 		Then status 200
 		
-		# Try to get food that was just deleted
+		# Try to get food template that was just deleted, and fail
 		* path 'food', createdFoodId
 		When method get
 		Then status 404
 		
-	Scenario: Fail to delete non-existant food
+	Scenario: Fail to delete non-existant food template
 		* path 'food', 999999999
 		When method delete
 		Then status 404
