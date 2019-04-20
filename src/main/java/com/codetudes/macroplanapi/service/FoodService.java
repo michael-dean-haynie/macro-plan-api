@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 
-import com.codetudes.macroplanapi.contract.FoodTemplateDTO;
+import com.codetudes.macroplanapi.contract.food.FoodTemplateDTO;
 
 public interface FoodService {
 	

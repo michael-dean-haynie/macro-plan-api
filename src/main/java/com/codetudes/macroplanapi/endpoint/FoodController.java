@@ -18,13 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codetudes.macroplanapi.contract.FoodTemplateDTO;
-import com.codetudes.macroplanapi.contract.UnitDTO;
-import com.codetudes.macroplanapi.db.enums.UnitEnum;
-import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
-import com.codetudes.macroplanapi.db.enums.UnitTypeEnum;
+import com.codetudes.macroplanapi.contract.food.FoodTemplateDTO;
 import com.codetudes.macroplanapi.service.FoodService;
-import com.codetudes.macroplanapi.service.impl.UnitServiceImpl;
 
 @RestController
 @RequestMapping("food")
