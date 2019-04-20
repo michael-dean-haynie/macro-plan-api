@@ -10,9 +10,4 @@ public class FoodTemplateDTO extends AbstractFoodDTO{
 	public Boolean getIsTemplate() {
 		return isTemplate;
 	}
-	
-	@Override
-	public void setIsTemplate(Boolean isTemplate) {
-		this.isTemplate = isTemplate;
-	}
 }
