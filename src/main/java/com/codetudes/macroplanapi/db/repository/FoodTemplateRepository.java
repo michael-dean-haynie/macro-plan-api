@@ -14,12 +14,11 @@ import com.codetudes.macroplanapi.db.domain.FoodTemplate;
 public interface FoodTemplateRepository extends PagingAndSortingRepository<FoodTemplate, Long> {
 	@Query(
 		"SELECT f FROM com.codetudes.macroplanapi.db.domain.FoodTemplate f WHERE " +
-		"(f.isTemplate = true) AND " +
 		"(" +
 		    "LOWER(f.name) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
 		    "LOWER(f.brand) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
 		    "LOWER(f.styleOrFlavor) LIKE LOWER(CONCAT('%',:searchTerm, '%'))" +
 	    ")"
     )
-    List<FoodTemplate> findAllTemplatesWithSearchAndSort(@Param("searchTerm") String searchTerm, Sort sort);
+    List<FoodTemplate> findAllViaSearchAndSort(@Param("searchTerm") String searchTerm, Sort sort);
 }

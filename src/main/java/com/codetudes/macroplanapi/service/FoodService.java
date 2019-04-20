@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 
-import com.codetudes.macroplanapi.contract.FoodDTO;
+import com.codetudes.macroplanapi.contract.FoodTemplateDTO;
 
 public interface FoodService {
 	
-	FoodDTO createFood(FoodDTO foodDTO);
+	FoodTemplateDTO create(FoodTemplateDTO foodTemplateDTO);
 	
-	FoodDTO getFood(Long id);
+	FoodTemplateDTO get(Long id);
 	
-	FoodDTO updateFood(FoodDTO foodDTO);
+	FoodTemplateDTO update(FoodTemplateDTO foodTemplateDTO);
 	
-	void deleteFood(Long id);
+	void delete(Long id);
 	
-	List<FoodDTO> getAllTemplatesWithSearchAndSort(String searchTerm, String sortField, Sort.Direction sortDirection);
+	List<FoodTemplateDTO> getViaSearchAndSort(String searchTerm, String sortField, Sort.Direction sortDirection);
 }

@@ -15,7 +15,7 @@ import org.hibernate.annotations.Formula;
 import lombok.Data;
 
 @Data
-@Entity(name="food")
+@Entity(name="food_template")
 public class FoodTemplate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

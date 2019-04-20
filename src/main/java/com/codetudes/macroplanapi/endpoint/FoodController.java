@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codetudes.macroplanapi.contract.FoodDTO;
+import com.codetudes.macroplanapi.contract.FoodTemplateDTO;
 import com.codetudes.macroplanapi.contract.UnitDTO;
 import com.codetudes.macroplanapi.db.enums.UnitEnum;
 import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
@@ -34,30 +34,30 @@ public class FoodController {
 	private FoodService foodService;
 	
 	@PostMapping
-	public FoodDTO createFood(@Valid @RequestBody FoodDTO foodDTO) {
-		return foodService.createFood(foodDTO);
+	public FoodTemplateDTO create(@Valid @RequestBody FoodTemplateDTO foodTemplateDTO) {
+		return foodService.create(foodTemplateDTO);
 	}
 	
 	@GetMapping("/{id}")
-	public FoodDTO getFood(@PathVariable("id") Long id) {
-		return foodService.getFood(id);
+	public FoodTemplateDTO get(@PathVariable("id") Long id) {
+		return foodService.get(id);
 	}
 	
 	@PutMapping()
-	public FoodDTO updateFood(@Valid @RequestBody FoodDTO foodDTO) {
-		return foodService.updateFood(foodDTO);
+	public FoodTemplateDTO update(@Valid @RequestBody FoodTemplateDTO foodTemplateDTO) {
+		return foodService.update(foodTemplateDTO);
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteFood(@PathVariable("id") Long id){
-		foodService.deleteFood(id);
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+		foodService.delete(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@GetMapping(params = {"searchTerm", "sortField", "sortDirection"})
-	public List<FoodDTO> getAllTemplatesWithSearchAndSort(@RequestParam("searchTerm") String searchTerm,
+	public List<FoodTemplateDTO> getViaSearchAndSort(@RequestParam("searchTerm") String searchTerm,
 			@RequestParam("sortField") String sortField, @RequestParam("sortDirection") Sort.Direction sortDirection) {
-		return foodService.getAllTemplatesWithSearchAndSort(searchTerm, sortField, sortDirection);
+		return foodService.getViaSearchAndSort(searchTerm, sortField, sortDirection);
 	}
 
 }

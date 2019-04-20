@@ -3,6 +3,7 @@ package com.codetudes.macroplanapi.contract;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -10,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class FoodDTO {
+public class FoodTemplateDTO {
 	private Long id;
 	
 	@NotNull
@@ -36,6 +37,7 @@ public class FoodDTO {
 	@Valid
 	private List<MeasurementDTO> measurements;
 	
+	@AssertTrue
 	@NotNull
 	private Boolean isTemplate;
 }
