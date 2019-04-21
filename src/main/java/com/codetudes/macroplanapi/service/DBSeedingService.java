@@ -16,10 +16,13 @@ import org.springframework.stereotype.Service;
 
 import com.codetudes.macroplanapi.db.domain.Measurement;
 import com.codetudes.macroplanapi.db.domain.Unit;
+import com.codetudes.macroplanapi.db.domain.dish.DishTemplate;
 import com.codetudes.macroplanapi.db.domain.food.FoodTemplate;
+import com.codetudes.macroplanapi.db.domain.ingredient.IngredientTemplate;
 import com.codetudes.macroplanapi.db.enums.UnitEnum;
 import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
 import com.codetudes.macroplanapi.db.enums.UnitTypeEnum;
+import com.codetudes.macroplanapi.db.repository.DishTemplateRepository;
 import com.codetudes.macroplanapi.db.repository.FoodTemplateRepository;
 import com.codetudes.macroplanapi.db.repository.MeasurementRepository;
 import com.codetudes.macroplanapi.db.repository.UnitRepository;
@@ -33,6 +36,10 @@ public class DBSeedingService {
 	
 	private Map<UnitEnum, Unit> unitMap = new HashMap<>();
 	
+	private Map<String, FoodTemplate> foodTemplateMap = new HashMap<>();
+	
+	private Map<String, DishTemplate> dishTemplateMap = new HashMap<>();
+	
 	@Autowired
 	private UnitRepository unitRepository;
 	
@@ -41,6 +48,9 @@ public class DBSeedingService {
 	
 	@Autowired
 	private FoodTemplateRepository foodTemplateRepository;
+	
+	@Autowired
+	private DishTemplateRepository dishTemplateRepository;
 	
 	@EventListener()
 	public void seedDatabase(ContextRefreshedEvent event) {
@@ -68,8 +78,8 @@ public class DBSeedingService {
 		
 		createUnit(UnitSystemEnum.GENERIC, UnitTypeEnum.ITEM, UnitEnum.GENERIC_ITEM, "Item", "item(s)", 1d);
 		
-		// Seed FoodTemplate Entities (Templates)
-		List<Measurement> measurements = new ArrayList<>(); // re-used for every food
+		// Seed FoodTemplate Entities
+		List<Measurement> measurements = new ArrayList<>(); // re-used for every food template
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
 		createFoodTemplate(70, 5d, 0d, 6d, "Eggs", "Great Value", "Large, White", measurements, true, true);
@@ -119,6 +129,29 @@ public class DBSeedingService {
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 158d, false)});
 		createFoodTemplate(205, .4d, 44.5d, 4.2d, "Rice", "Great Value", "White, long-grain, cooked", measurements, true, true);
 		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 52.2d, false)});
+		createFoodTemplate(240, 9d, 37d, 2d, "MilkyWay", "Mars", null, measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.TEA_SPOON), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 4d, false)});
+		createFoodTemplate(5, 0d, 1d, 0d, "Chicken Flavor Bouillon", "Knorr", null, measurements, true, true);
+		
+		// Seed DishTemplate Entities
+		
+		List<IngredientTemplate> ingredients = new ArrayList<>(); // re-used for every dish template
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
+		ingredients = Arrays.asList(new IngredientTemplate[] {
+			createIngredientTemplate("Tuna", createMeasurement(unitMap.get(UnitEnum.OUNCE), (18d/7d), false)),
+			createIngredientTemplate("Celery Sticks", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), (2d/7d), false)),
+			createIngredientTemplate("Mayonnaise", createMeasurement(unitMap.get(UnitEnum.TABLE_SPOON), (4d/7d), false)),
+			createIngredientTemplate("Sweet Relish", createMeasurement(unitMap.get(UnitEnum.TABLE_SPOON), (4d/7d), false)),
+			createIngredientTemplate("Sandwich Bread", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), (14d/7d), false)),
+		});
+		createDishTemplate("Tuna Sandwich", measurements, ingredients, true);
+		
+		
+		
+		
 		
 	}
 	
@@ -151,6 +184,30 @@ public class DBSeedingService {
 		foodTemplate.setStyleOrFlavor(styleOrFlavor);
 		foodTemplate.setMeasurements(measurements);
 		foodTemplate.setIsTemplate(isTemplate);
-		return saveImmediately ? foodTemplateRepository.save(foodTemplate) : foodTemplate;
+		foodTemplateMap.put(name, saveImmediately ? foodTemplateRepository.save(foodTemplate) : foodTemplate);
+		return foodTemplateMap.get(name);
+	}
+	
+	private FoodTemplate getFoodTemplateByName (String foodName) {
+//		return foodTemplateRepository.findById()
+		return foodTemplateMap.get(foodName);
+	}
+	
+	private IngredientTemplate createIngredientTemplate (String foodName, Measurement measurement) {
+		IngredientTemplate ingredientTemplate = new IngredientTemplate();
+		ingredientTemplate.setFood(getFoodTemplateByName(foodName));;
+		ingredientTemplate.setMeasurement(measurement);
+		ingredientTemplate.setIsTemplate(true);
+		return ingredientTemplate;
+	}
+	
+	private DishTemplate createDishTemplate (String name, List<Measurement> measurements, List<IngredientTemplate> ingredients, Boolean saveImmediately) {
+		DishTemplate dishTemplate = new DishTemplate();
+		dishTemplate.setName(name);
+		dishTemplate.setMeasurements(measurements);
+		dishTemplate.setIngredients(ingredients);
+		dishTemplate.setIsTemplate(true);
+		dishTemplateMap.put(name, saveImmediately ? dishTemplateRepository.save(dishTemplate) : dishTemplate);
+		return dishTemplateMap.get(name);
 	}
 }
