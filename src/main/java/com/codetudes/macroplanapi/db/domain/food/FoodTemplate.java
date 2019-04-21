@@ -1,4 +1,4 @@
-package com.codetudes.macroplanapi.db.domain;
+package com.codetudes.macroplanapi.db.domain.food;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Formula;
+
+import com.codetudes.macroplanapi.db.domain.Measurement;
 
 import lombok.Data;
 

@@ -14,9 +14,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
-import com.codetudes.macroplanapi.db.domain.FoodTemplate;
 import com.codetudes.macroplanapi.db.domain.Measurement;
 import com.codetudes.macroplanapi.db.domain.Unit;
+import com.codetudes.macroplanapi.db.domain.food.FoodTemplate;
 import com.codetudes.macroplanapi.db.enums.UnitEnum;
 import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
 import com.codetudes.macroplanapi.db.enums.UnitTypeEnum;

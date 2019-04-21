@@ -14,8 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.codetudes.macroplanapi.contract.UnitDTO;
 import com.codetudes.macroplanapi.contract.food.FoodTemplateDTO;
-import com.codetudes.macroplanapi.db.domain.FoodTemplate;
 import com.codetudes.macroplanapi.db.domain.Unit;
+import com.codetudes.macroplanapi.db.domain.food.FoodTemplate;
 import com.codetudes.macroplanapi.db.repository.FoodTemplateRepository;
 import com.codetudes.macroplanapi.service.FoodService;
 
