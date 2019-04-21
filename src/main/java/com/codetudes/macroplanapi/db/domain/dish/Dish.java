@@ -1,4 +1,4 @@
-package com.codetudes.macroplanapi.db.domain.food;
+package com.codetudes.macroplanapi.db.domain.dish;
 
 import java.util.List;
 
@@ -11,33 +11,25 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.codetudes.macroplanapi.db.domain.Measurement;
+import com.codetudes.macroplanapi.db.domain.ingredient.Ingredient;
 
 import lombok.Data;
 
 @Data
-@Entity(name="food")
-public class Food {
+@Entity(name="dish")
+public class Dish {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "serial")
 	private Long id;
 	
-	private Integer calories;
-	
-	private Double fat;
-	
-	private Double carbs;
-	
-	private Double protein;
-	
 	private String name;
 	
-	private String brand;
-	
-	private String styleOrFlavor;
-	
-	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Measurement> measurements;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Ingredient> ingredients;
 	
 	private Boolean isTemplate;
 }

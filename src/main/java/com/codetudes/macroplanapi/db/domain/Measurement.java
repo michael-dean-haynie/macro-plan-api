@@ -18,7 +18,7 @@ public class Measurement {
 	private Long id;
 	
 	// TODO: https://stackoverflow.com/questions/45491551/refresh-and-fetch-an-entity-after-save-jpa-spring-data-hibernate?rq=1
-	@ManyToOne // <-- Do not let other entites save/update nested units via cascade
+	@ManyToOne // <-- Do not let other entities save/update nested units via cascade
 	private Unit unit;
 	
 	private Double value;

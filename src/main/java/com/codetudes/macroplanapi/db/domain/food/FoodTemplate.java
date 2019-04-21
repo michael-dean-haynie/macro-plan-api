@@ -38,7 +38,7 @@ public class FoodTemplate {
 	
 	private String styleOrFlavor;
 	
-	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Measurement> measurements;
 	
 	private Boolean isTemplate;
