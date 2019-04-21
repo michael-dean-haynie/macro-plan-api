@@ -166,10 +166,10 @@ public class DBSeedingService {
 		unitMap.put(unit, unitRepository.save(unitEntity));
 	}
 	
-	private Measurement createMeasurement(Unit unit, Double value, Boolean saveImmediately) {
+	private Measurement createMeasurement(Unit unit, Double amount, Boolean saveImmediately) {
 		Measurement measurement = new Measurement();
 		measurement.setUnit(unit);
-		measurement.setValue(value);
+		measurement.setAmount(amount);
 		return saveImmediately ? measurementRepository.save(measurement) : measurement;
 	}
 	

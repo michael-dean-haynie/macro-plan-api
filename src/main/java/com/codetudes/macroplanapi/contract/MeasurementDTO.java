@@ -17,5 +17,5 @@ public class MeasurementDTO {
 	private UnitDTO unit;
 	
 	@NotNull
-	private Double value;
+	private Double amount;
 }

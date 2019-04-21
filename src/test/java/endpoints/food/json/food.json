@@ -17,7 +17,7 @@
 				"unitSystem": "METRIC",
 				"unitType": "MASS"
 			},
-			"value": 9000.1
+			"amount": 9000.1
 		}
 	],
 	"isTemplate": false

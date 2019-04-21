@@ -21,5 +21,5 @@ public class Measurement {
 	@ManyToOne // <-- Do not let other entities save/update nested units via cascade
 	private Unit unit;
 	
-	private Double value;
+	private Double amount;
 }

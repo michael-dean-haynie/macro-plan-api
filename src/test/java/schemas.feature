@@ -20,7 +20,7 @@ Feature: Prepare schemas
 		{
 			id: '#number',
 			unit: '#(schemas.unit)',
-			value: '#number'
+			amount: '#number'
 		}
 		"""
 		

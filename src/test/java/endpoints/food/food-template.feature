@@ -12,7 +12,7 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 		# Create a food temlate
 		* path 'food'
 		* def payload = read('classpath:endpoints/food/json/food-template.json')
-		* set payload.measurements = [{unit: '#(units[0])', value: 42}]
+		* set payload.measurements = [{unit: '#(units[0])', amount: 42}]
 		Given request payload
 		When method post
 		Then status 200
@@ -29,7 +29,7 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 		* assert response.brand == payload.brand
 		* assert response.styleOrFlavor == payload.styleOrFlavor
 		* assert response.measurements[0].unit.id == payload.measurements[0].unit.id
-		* assert response.measurements[0].value == payload.measurements[0].value
+		* assert response.measurements[0].amount == payload.measurements[0].amount
 		* assert response.isTemplate == payload.isTemplate
 		
 		# Delete food template that was just created
@@ -152,11 +152,11 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 		# Update one of the measurements (update ammount)
 		Given path 'food'
 		* def payload = response
-		* set payload.measurements[0].value = response.measurements[0].value + 1
+		* set payload.measurements[0].amount = response.measurements[0].amount + 1
 		* request payload
 		When method put
 		Then status 200
-		* match response.measurements[0].value == payload.measurements[0].value
+		* match response.measurements[0].amount == payload.measurements[0].amount
 		
 		# Delete food template that was just created
 		* path 'food', createResponse.id
