@@ -1,0 +1,36 @@
+{
+    "calories": 90,
+    "fat": 10,
+    "carbs": 0,
+    "protein": 0,
+    "name": "Mayonnaise",
+    "brand": "Kraft",
+    "styleOrFlavor": null,
+    "measurements": [
+        {
+            "unit": {
+                "id": 9,
+                "unitSystem": "IMPERIAL",
+                "unitType": "VOLUME",
+                "unit": "TABLE_SPOON",
+                "properName": "Tablespoon",
+                "abbreviation": "tbsp",
+                "unitTypeRatio": 0.5
+            },
+            "amount": 1
+        },
+        {
+            "unit": {
+                "id": 2,
+                "unitSystem": "METRIC",
+                "unitType": "MASS",
+                "unit": "GRAM",
+                "properName": "Gram",
+                "abbreviation": "g",
+                "unitTypeRatio": 1
+            },
+            "amount": 13
+        }
+    ],
+    "isTemplate": true
+}

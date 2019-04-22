@@ -1,0 +1,36 @@
+{
+    "calories": 100,
+    "fat": 3.5,
+    "carbs": 0,
+    "protein": 16,
+    "name": "Tuna",
+    "brand": "StarKist",
+    "styleOrFlavor": "Chunk Light",
+    "measurements": [
+        {
+            "unit": {
+                "id": 11,
+                "unitSystem": "IMPERIAL",
+                "unitType": "VOLUME",
+                "unit": "CUP",
+                "properName": "Cup",
+                "abbreviation": "c",
+                "unitTypeRatio": 8
+            },
+            "amount": 0.33
+        },
+        {
+            "unit": {
+                "id": 2,
+                "unitSystem": "METRIC",
+                "unitType": "MASS",
+                "unit": "GRAM",
+                "properName": "Gram",
+                "abbreviation": "g",
+                "unitTypeRatio": 1
+            },
+            "amount": 85
+        }
+    ],
+    "isTemplate": true
+}

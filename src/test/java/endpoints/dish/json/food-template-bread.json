@@ -1,0 +1,36 @@
+{
+    "calories": 70,
+    "fat": 1.5,
+    "carbs": 12,
+    "protein": 4,
+    "name": "Sandwich Bread",
+    "brand": "Nature's Own",
+    "styleOrFlavor": "100% Whole Grain",
+    "measurements": [
+        {
+            "unit": {
+                "id": 15,
+                "unitSystem": "GENERIC",
+                "unitType": "ITEM",
+                "unit": "GENERIC_ITEM",
+                "properName": "Item",
+                "abbreviation": "item(s)",
+                "unitTypeRatio": 1
+            },
+            "amount": 1
+        },
+        {
+            "unit": {
+                "id": 2,
+                "unitSystem": "METRIC",
+                "unitType": "MASS",
+                "unit": "GRAM",
+                "properName": "Gram",
+                "abbreviation": "g",
+                "unitTypeRatio": 1
+            },
+            "amount": 26
+        }
+    ],
+    "isTemplate": true
+}

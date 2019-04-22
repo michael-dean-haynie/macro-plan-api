@@ -1,0 +1,36 @@
+{
+    "calories": 15,
+    "fat": 0,
+    "carbs": 4,
+    "protein": 1,
+    "name": "Celery Sticks",
+    "brand": "Dandy",
+    "styleOrFlavor": null,
+    "measurements": [
+        {
+            "unit": {
+                "id": 15,
+                "unitSystem": "GENERIC",
+                "unitType": "ITEM",
+                "unit": "GENERIC_ITEM",
+                "properName": "Item",
+                "abbreviation": "item(s)",
+                "unitTypeRatio": 1
+            },
+            "amount": 2
+        },
+        {
+            "unit": {
+                "id": 2,
+                "unitSystem": "METRIC",
+                "unitType": "MASS",
+                "unit": "GRAM",
+                "properName": "Gram",
+                "abbreviation": "g",
+                "unitTypeRatio": 1
+            },
+            "amount": 85
+        }
+    ],
+    "isTemplate": true
+}

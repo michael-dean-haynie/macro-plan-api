@@ -124,7 +124,7 @@ public class DBSeedingService {
 		createFoodTemplate(98, 0.2d, 24d, 0.4d, "Apples", null, "Gala", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 112d, false)});
-		createFoodTemplate(140, 4d, 0d, 25d, "Chicken Breasts", "Great Value", "Boneless, Skinnless, with rib meat", measurements, true, true);
+		createFoodTemplate(140, 4d, 0d, 25d, "Chicken Breast", "Great Value", "Boneless, Skinnless, with rib meat", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 158d, false)});
 		createFoodTemplate(205, .4d, 44.5d, 4.2d, "Rice", "Great Value", "White, long-grain, cooked", measurements, true, true);
@@ -134,6 +134,17 @@ public class DBSeedingService {
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.TEA_SPOON), 1d, false), createMeasurement(unitMap.get(UnitEnum.GRAM), 4d, false)});
 		createFoodTemplate(5, 0d, 1d, 0d, "Chicken Flavor Bouillon", "Knorr", null, measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.OUNCE), 2d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3.5d, false)});
+		createFoodTemplate(60, 1d, 2d, 10d, "Oven Roasted Turkey Breast", "Hillshire Farm", "Ultra Thin", measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.OUNCE), 2d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3.5d, false)});
+		createFoodTemplate(60, 2d, 1d, 9d, "Black Forest Ham", "Hillshire Farm", "Ultra Thin", measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 118d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
+		createFoodTemplate(105, 0.4d, 27d, 1.3d, "Banana", null, "Medium", measurements, true, true);
+		
+		
 		
 		// Seed DishTemplate Entities
 		

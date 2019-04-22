@@ -40,6 +40,27 @@ Feature: Prepare schemas
 		}
 		"""
 		
+		* set schemas.ingredient =
+		"""
+		{
+			id: '#number',
+			food: '#(schemas.food)',
+			measurement: '#(schemas.measurement)',
+			isTemplate: false
+		}
+		"""
+		
+		* set schemas.dish =
+		"""
+		{
+			id: '#number',
+			name: '#string',
+			measurements: '#[] schemas.measurement',
+			ingredients: '#[] schemas.ingredient',
+			isTemplate: false
+		}
+		"""
+		
 		# ------------------------------------------------
 		# Templates
 		# ------------------------------------------------
@@ -57,6 +78,27 @@ Feature: Prepare schemas
 			brand: '##string',
 			styleOrFlavor: '##string',
 			measurements: '#[] schemas.measurement',
+			isTemplate: true
+		}
+		"""
+		
+		* set schemas.ingredient =
+		"""
+		{
+			id: '#number',
+			food: '#(schemas.foodTemplate)',
+			measurement: '#(schemas.measurement)',
+			isTemplate: true
+		}
+		"""
+		
+		* set schemas.dish =
+		"""
+		{
+			id: '#number',
+			name: '#string',
+			measurements: '#[] schemas.measurement',
+			ingredients: '#[] schemas.ingredientTemplate',
 			isTemplate: true
 		}
 		"""

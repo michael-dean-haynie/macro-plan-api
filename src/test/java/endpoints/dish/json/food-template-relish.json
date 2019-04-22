@@ -1,0 +1,24 @@
+{
+    "calories": 15,
+    "fat": 0,
+    "carbs": 3,
+    "protein": 0,
+    "name": "Sweet Relish",
+    "brand": "Heinz",
+    "styleOrFlavor": null,
+    "measurements": [
+        {
+            "unit": {
+                "id": 9,
+                "unitSystem": "IMPERIAL",
+                "unitType": "VOLUME",
+                "unit": "TABLE_SPOON",
+                "properName": "Tablespoon",
+                "abbreviation": "tbsp",
+                "unitTypeRatio": 0.5
+            },
+            "amount": 1
+        }
+    ],
+    "isTemplate": true
+}
