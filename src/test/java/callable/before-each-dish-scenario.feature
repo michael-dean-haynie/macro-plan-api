@@ -61,7 +61,7 @@ Feature: Before each scenario create some test data to use while testing dishes 
     """
 		
 		# Put together payload for template dish (tuna sandwich) using existing units and food templates
-		* def payload =
+		* def tunaSWPayload =
 		"""
 		{
 			name: 'Tuna Sandwich',
@@ -119,7 +119,7 @@ Feature: Before each scenario create some test data to use while testing dishes 
 		
 		# Create dish template
 		* path 'dish'
-		Given request payload
+		Given request tunaSWPayload
 		When method post
 		Then status 200
 		* def tunaSW = response

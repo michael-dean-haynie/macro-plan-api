@@ -2,6 +2,10 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 
 	Background:
 		* url baseUrl
+		
+	# --------------------------------------------
+	# CREATE
+	# --------------------------------------------
 
 	Scenario: Successfully create a food template using existing unit. Validate schema and values.
 		#	Get units	 
@@ -63,6 +67,10 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 		| measurements                       | []    |
 		| isTemplate                         | null  |
 		
+	# --------------------------------------------
+	# READ
+	# --------------------------------------------
+	
 	Scenario: Successfully get a food template
 		# First, create a food template
 		* path 'food'
@@ -85,6 +93,10 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 		Given path 'food', 999999999
 		When method get
 		Then status 404
+		
+	# --------------------------------------------
+	# UPDATE
+	# --------------------------------------------
 		
 	Scenario Outline: Fail or succeed to update a food template (set payload.<fieldName> = <value> and expect <status>)
 		# Create a food template
@@ -170,6 +182,10 @@ Feature: Test the /food endpoints. These endpoints should only directly modify f
 		* request payload
 		When method put
 		Then status 400 # not 404 cause it should fail validation before db is queried for existance
+	
+	# --------------------------------------------
+	# DELETE
+	# --------------------------------------------
 	
 	Scenario: Successfully delete food template
 		# Create a food tempate

@@ -82,7 +82,7 @@ Feature: Prepare schemas
 		}
 		"""
 		
-		* set schemas.ingredient =
+		* set schemas.ingredientTemplate =
 		"""
 		{
 			id: '#number',
@@ -92,7 +92,7 @@ Feature: Prepare schemas
 		}
 		"""
 		
-		* set schemas.dish =
+		* set schemas.dishTemplate =
 		"""
 		{
 			id: '#number',

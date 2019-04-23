@@ -19,6 +19,7 @@ public  class IngredientDTO {
 	@NotNull
 	private MeasurementDTO measurement;
 
+	@NotNull
 	@AssertFalse
 	private Boolean isTemplate;
 }

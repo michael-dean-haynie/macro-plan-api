@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.codetudes.macroplanapi.contract.MeasurementDTO;
 import com.codetudes.macroplanapi.contract.ingredient.IngredientTemplateDTO;
@@ -27,6 +28,7 @@ public class DishTemplateDTO {
 	@Valid
 	private List<IngredientTemplateDTO> ingredients;
 	
+	@NotNull
 	@AssertTrue
 	private Boolean isTemplate;
 }
