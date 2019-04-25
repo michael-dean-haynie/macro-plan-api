@@ -13,10 +13,14 @@ import com.codetudes.macroplanapi.db.domain.dish.DishTemplate;
 @Repository
 public interface DishTemplateRepository extends PagingAndSortingRepository<DishTemplate, Long> {
 	@Query(
-			"SELECT dt FROM com.codetudes.macroplanapi.db.domain.dish.DishTemplate dt WHERE " +
-			"(" +
-			    "LOWER(dt.name) LIKE LOWER(CONCAT('%',:searchTerm, '%'))" +
-			    // TODO: Maybe also search ingredient's food names and stuffz?
+			"SELECT distinct dt FROM com.codetudes.macroplanapi.db.domain.dish.DishTemplate dt " +
+			"JOIN dt.ingredients ingr " +
+			"JOIN ingr.food ft " +
+			"WHERE (" +
+			    "LOWER(dt.name) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
+			    "LOWER(ft.name) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
+			    "LOWER(ft.brand) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
+			    "LOWER(ft.styleOrFlavor) LIKE LOWER(CONCAT('%',:searchTerm, '%'))" +
 		    ")"
 	    )
 	    List<DishTemplate> findAllViaSearchAndSort(@Param("searchTerm") String searchTerm, Sort sort);

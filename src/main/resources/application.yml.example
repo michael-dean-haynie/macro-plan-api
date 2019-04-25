@@ -7,6 +7,20 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create
+    # must enable to see sql queries in stdout
+#    properties:
+#      hibernate:
+#        show_sql: true
+#        use_sql_comments: true
+#        format_sql: true
+#        type: trace
+
+# must enable to see sql query value bindings in stdout
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        type: TRACE
       
 macro-plan:
   seed-on-startup: true
