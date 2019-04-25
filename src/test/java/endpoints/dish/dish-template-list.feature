@@ -50,124 +50,42 @@ Feature: Test the /dish list endpoints
 		| 'Chunk Light'             |  contains      | !contains              |
 		| "100% Whole Grain"        |  contains      | contains               |
 		
-#	Scenario Outline: Successfully get list of food templates sorted by the "<sortField>" field <sortDirection>
-#		# Create food template 1
-#		* path 'food'
-#		* def payload = read('classpath:endpoints/food/json/food-template.json')
-#		* set payload.<sortField> = '1'
-#		* request payload
-#		* method post
-#		* status 200
-#		* def food1Id = response.id
-#		
-#		# Create food template 2
-#		* path 'food'
-#		* def payload = read('classpath:endpoints/food/json/food-template.json')
-#		* set payload.<sortField> = '2'
-#		* request payload
-#		* method post
-#		* status 200
-#		* def food2Id = response.id
-#		
-#		# Search for food templates that were just created
-#		* path 'food'
-#		* param searchTerm = ''
-#		* param sortField = '<sortField>'
-#		* param sortDirection = '<sortDirection>'
-#		When method get
-#		Then status 200
-#		* def ids = get response[*].id
-#		* match ids contains food1Id
-#		* match ids contains food2Id
-#		
-#		# Assert proper sort order
-#		* def fun = function(x){ return x.id == food1Id || x.id == food2Id }
-#		* def filteredResponse = karate.filter(response, fun)
-#		* assert filteredResponse[<food1Index>].id == food1Id
-#		* assert filteredResponse[<food2Index>].id == food2Id
-#		
-#		# Delete food templates that were just created
-#		* path 'food', food1Id
-#		* method delete
-#		* status 200
-#		* path 'food', food2Id
-#		* method delete
-#		* status 200
-#		
-#		Examples: 
-#		| sortField     | sortDirection | food1Index | food2Index |
-#		| calories      | ASC           | 0          | 1          |
-#		| calories      | DESC          | 1          | 0          |
-#		| fat           | ASC           | 0          | 1          |
-#		| fat           | DESC          | 1          | 0          |
-#		| carbs         | ASC           | 0          | 1          |
-#		| carbs         | DESC          | 1          | 0          |
-#		| protein       | ASC           | 0          | 1          |
-#		| protein       | DESC          | 1          | 0          |
-#		| name          | ASC           | 0          | 1          |
-#		| name          | DESC          | 1          | 0          |
-#		| brand         | ASC           | 0          | 1          |
-#		| brand         | DESC          | 1          | 0          |
-#		| styleOrFlavor | ASC           | 0          | 1          |
-#		| styleOrFlavor | DESC          | 1          | 0          |
-#	
-#	Scenario Outline: Successfully get list of food templates sorted by the calculated field "<calculatedField>" <sortDirection>
-#		# Create food template 1
-#		* path 'food'
-#		* def payload = read('classpath:endpoints/food/json/food-template.json')
-#		* set payload.fat = <food1Fat>
-#		* set payload.carbs = <food1Carbs>
-#		* set payload.protein = <food1Protein>
-#		* request payload
-#		* method post
-#		* status 200
-#		* def food1Id = response.id
-#		
-#		# Create food template 2
-#		* path 'food'
-#		* def payload = read('classpath:endpoints/food/json/food-template.json')
-#		* set payload.fat = <food2Fat>
-#		* set payload.carbs = <food2Carbs>
-#		* set payload.protein = <food2Protein>
-#		* request payload
-#		* method post
-#		* status 200
-#		* def food2Id = response.id
-#		
-#		# Search for food templates that were just created
-#		* path 'food'
-#		* param searchTerm = ''
-#		* param sortField = '<calculatedField>'
-#		* param sortDirection = '<sortDirection>'
-#		When method get
-#		Then status 200
-#		* def ids = get response[*].id
-#		* match ids contains food1Id
-#		* match ids contains food2Id
-#		
-#		# Assert proper sort order
-#		* def fun = function(x){ return x.id == food1Id || x.id == food2Id }
-#		* def filteredResponse = karate.filter(response, fun)
-#		* print filteredResponse
-#		* assert filteredResponse[<food1Index>].id == food1Id
-#		* assert filteredResponse[<food2Index>].id == food2Id
-#		
-#		# Delete food templates that were just created
-#		* path 'food', food1Id
-#		* method delete
-#		* status 200
-#		* path 'food', food2Id
-#		* method delete
-#		* status 200
-#		
-#		Examples: 
-#		| calculatedField   | sortDirection | food1Fat | food1Carbs | food1Protein | food2Fat | food2Carbs | food2Protein | food1Index | food2Index |
-#		| fatPercentage     | ASC           | 1        | 1          | 1            | 2        | 1          | 1            | 0          | 1          |
-#		| fatPercentage     | DESC          | 1        | 1          | 1            | 2        | 1          | 1            | 1          | 0          |
-#		| carbsPercentage   | ASC           | 1        | 1          | 1            | 1        | 2          | 1            | 0          | 1          |
-#		| carbsPercentage   | DESC          | 1        | 1          | 1            | 1        | 2          | 1            | 1          | 0          |
-#		| proteinPercentage | ASC           | 1        | 1          | 1            | 1        | 1          | 2            | 0          | 1          |
-#		| proteinPercentage | DESC          | 1        | 1          | 1            | 1        | 1          | 2            | 1          | 0          |
-#		
-#		
-#		
+	Scenario Outline: Successfully get list of food templates sorted by the "<sortField>" field <sortDirection>
+		
+		# Get list of dish templates
+		* path 'dish'
+		* param searchTerm = ''
+		* param sortField = '<sortField>'
+		* param sortDirection = '<sortDirection>'
+		When method get
+		Then status 200
+		* def ids = get response[*].id
+		* match ids contains prepData.tunaSW.id
+		* match ids contains prepData.hamAndTurkeySW.id
+		
+		# Assert proper sort order
+		* def fun = function(x){ return x.id == prepData.tunaSW.id || x.id == prepData.hamAndTurkeySW.id }
+		* def filteredResponse = karate.filter(response, fun)
+		* assert filteredResponse[<tunaIndex>].id == prepData.tunaSW.id
+		* assert filteredResponse[<hamAndTurkeyIndex>].id == prepData.hamAndTurkeySW.id
+		
+		Examples: 
+		| sortField         | sortDirection | tunaIndex  | hamAndTurkeyIndex |
+		| name              | ASC           | 1          | 0                 |
+		| name              | DESC          | 0          | 1                 |
+		| calories          | ASC           | 1          | 0                 |
+		| calories          | DESC          | 0          | 1                 |
+		| fat               | ASC           | 1          | 0                 |
+		| fat               | DESC          | 0          | 1                 |
+		| carbs             | ASC           | 0          | 1                 |
+		| carbs             | DESC          | 1          | 0                 |
+		| protein           | ASC           | 0          | 1                 |
+		| protein           | DESC          | 1          | 0                 |
+		| fatPercentage     | ASC           | 1          | 0                 |
+		| fatPercentage     | DESC          | 0          | 1                 |
+		| carbsPercentage   | ASC           | 0          | 1                 |
+		| carbsPercentage   | DESC          | 1          | 0                 |
+		| proteinPercentage | ASC           | 0          | 1                 |
+		| proteinPercentage | DESC          | 1          | 0                 |
+
+
