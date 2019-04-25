@@ -28,8 +28,8 @@ import com.codetudes.macroplanapi.db.repository.MeasurementRepository;
 import com.codetudes.macroplanapi.db.repository.UnitRepository;
 
 @Service
-public class DBSeedingService {
-	private static Logger LOG = LoggerFactory.getLogger(DBSeedingService.class);
+public class SeedingService {
+	private static Logger LOG = LoggerFactory.getLogger(SeedingService.class);
 	
 	@Value("${macro-plan.seed-on-startup}")
 	private boolean seedOnStartup;
@@ -139,12 +139,10 @@ public class DBSeedingService {
 		createFoodTemplate(60, 1d, 2d, 10d, "Oven Roasted Turkey Breast", "Hillshire Farm", "Ultra Thin", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.OUNCE), 2d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3.5d, false)});
-		createFoodTemplate(60, 2d, 1d, 9d, "Black Forest Ham", "Hillshire Farm", "Ultra Thin", measurements, true, true);
+		createFoodTemplate(60, 2d, 1d, 9d, "Black Forrest Ham", "Hillshire Farm", "Ultra Thin", measurements, true, true);
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 118d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
 		createFoodTemplate(105, 0.4d, 27d, 1.3d, "Banana", null, "Medium", measurements, true, true);
-		
-		
 		
 		// Seed DishTemplate Entities
 		
@@ -159,6 +157,14 @@ public class DBSeedingService {
 			createIngredientTemplate("Sandwich Bread", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), (14d/7d), false)),
 		});
 		createDishTemplate("Tuna Sandwich", measurements, ingredients, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
+		ingredients = Arrays.asList(new IngredientTemplate[] {
+			createIngredientTemplate("Black Forrest Ham", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3.5d, false)),
+			createIngredientTemplate("Oven Roasted Turkey Breast", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3.5d, false)),
+			createIngredientTemplate("Sandwich Bread", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 2d, false)),
+		});
+		createDishTemplate("Ham & Turkey on Wheat", measurements, ingredients, true);
 		
 		
 		
