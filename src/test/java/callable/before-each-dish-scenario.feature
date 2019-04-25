@@ -43,9 +43,23 @@ Feature: Before each scenario create some test data to use while testing dishes 
 		Then status 200
 		* def bread = response
 		
-		# --------------------------------------------
-		# Create dish template (tuna sandwich)
-		# --------------------------------------------
+		* path 'food'
+		* def payload = read('classpath:endpoints/dish/json/food-template-ham.json')
+		Given request payload
+		When method post
+		Then status 200
+		* def ham = response
+		
+		* path 'food'
+		* def payload = read('classpath:endpoints/dish/json/food-template-turkey.json')
+		Given request payload
+		When method post
+		Then status 200
+		* def turkey = response
+		
+		# ----------------------------------------------------------------
+		# Create dish templates (tuna sandwich, ham & turkey sandwich)
+		# ----------------------------------------------------------------
 		
 		# Get units
 		* path 'unit'
@@ -117,11 +131,59 @@ Feature: Before each scenario create some test data to use while testing dishes 
 		}
 		"""
 		
-		# Create dish template
+		# Create dish template (tuna sandwich)
 		* path 'dish'
 		Given request tunaSWPayload
 		When method post
 		Then status 200
 		* def tunaSW = response
+		
+		# Put together payload for template dish (ham & turkey sandwich) using existing units and food templates
+		* def hamAndTurkeySWPayload =
+		"""
+		{
+			name: 'Ham & Turkey Sandwich',
+			measurements: [
+				{
+					'unit': '#(getUnitByName(units, "GENERIC_ITEM"))',
+	        'amount': 1
+				}
+			],
+			ingredients: [
+				{
+					food: '#(ham)',
+					measurement: {
+						'unit': '#(getUnitByName(units, "GENERIC_ITEM"))',
+	        	'amount': 3.5
+					},
+					isTemplate: true
+				},
+				{
+					food: '#(turkey)',
+					measurement: {
+						'unit': '#(getUnitByName(units, "GENERIC_ITEM"))',
+	        	'amount': 3.5
+					},
+					isTemplate: true
+				},
+				{
+					food: '#(bread)',
+					measurement: {
+						'unit': '#(getUnitByName(units, "GENERIC_ITEM"))',
+	        	'amount': 2
+					},
+					isTemplate: true
+				}
+			],
+			isTemplate: true
+		}
+		"""
+		
+		# Create dish template (ham & turkey sandwich)
+		* path 'dish'
+		Given request hamAndTurkeySWPayload
+		When method post
+		Then status 200
+		* def hamAndTurkeySW = response
 		
 		

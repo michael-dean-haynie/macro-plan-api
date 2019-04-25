@@ -1,0 +1,36 @@
+{
+    "calories": 60,
+    "fat": 2,
+    "carbs": 1,
+    "protein": 9,
+    "name": "Black Forrest Ham",
+    "brand": "Hillshire Farm",
+    "styleOrFlavor": "Ultra Thin",
+    "measurements": [
+        {
+            "unit": {
+                "id": 6,
+                "unitSystem": "IMPERIAL",
+                "unitType": "MASS",
+                "unit": "OUNCE",
+                "properName": "Ounce",
+                "abbreviation": "oz",
+                "unitTypeRatio": 28.3495
+            },
+            "amount": 2
+        },
+        {
+            "unit": {
+                "id": 15,
+                "unitSystem": "GENERIC",
+                "unitType": "ITEM",
+                "unit": "GENERIC_ITEM",
+                "properName": "Item",
+                "abbreviation": "item(s)",
+                "unitTypeRatio": 1
+            },
+            "amount": 3.5
+        }
+    ],
+    "isTemplate": true
+}

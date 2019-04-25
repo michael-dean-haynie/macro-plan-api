@@ -6,8 +6,12 @@ Feature: After each scenario delete the test data
 		* url baseUrl
 
 	Scenario: Delete the test data
-		# Delete dish template (Must happen before food-templates or fk constraint issues happen)
+		# Delete dish templates (Must happen before food-templates or fk constraint issues happen)
 		* path 'dish', prepData.tunaSW.id
+		* method delete
+		* status 200
+		
+		* path 'dish', prepData.hamAndTurkeySW.id
 		* method delete
 		* status 200
 	
@@ -29,5 +33,13 @@ Feature: After each scenario delete the test data
 		* status 200
 		
 		* path 'food', prepData.bread.id
+		* method delete
+		* status 200
+		
+		* path 'food', prepData.turkey.id
+		* method delete
+		* status 200
+		
+		* path 'food', prepData.ham.id
 		* method delete
 		* status 200
