@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 import com.codetudes.macroplanapi.contract.ingredient.IngredientTemplateDTO;
 import com.codetudes.macroplanapi.contract.plate.PlateTemplateDTO;
 
+import lombok.Data;
+
+@Data
 public class PlanTemplateDTO {
 	private Long id;
 	
