@@ -19,12 +19,15 @@ import com.codetudes.macroplanapi.db.domain.Unit;
 import com.codetudes.macroplanapi.db.domain.dish.DishTemplate;
 import com.codetudes.macroplanapi.db.domain.food.FoodTemplate;
 import com.codetudes.macroplanapi.db.domain.ingredient.IngredientTemplate;
+import com.codetudes.macroplanapi.db.domain.plan.PlanTemplate;
+import com.codetudes.macroplanapi.db.domain.plate.PlateTemplate;
 import com.codetudes.macroplanapi.db.enums.UnitEnum;
 import com.codetudes.macroplanapi.db.enums.UnitSystemEnum;
 import com.codetudes.macroplanapi.db.enums.UnitTypeEnum;
 import com.codetudes.macroplanapi.db.repository.DishTemplateRepository;
 import com.codetudes.macroplanapi.db.repository.FoodTemplateRepository;
 import com.codetudes.macroplanapi.db.repository.MeasurementRepository;
+import com.codetudes.macroplanapi.db.repository.PlanTemplateRepository;
 import com.codetudes.macroplanapi.db.repository.UnitRepository;
 
 @Service
@@ -52,6 +55,9 @@ public class SeedingService {
 	@Autowired
 	private DishTemplateRepository dishTemplateRepository;
 	
+	@Autowired
+	private PlanTemplateRepository planTemplateRepository;
+	
 	@EventListener()
 	public void seedDatabase(ContextRefreshedEvent event) {
 		LOG.info("seed-on-startup functionality enabled: " + seedOnStartup);
@@ -78,7 +84,11 @@ public class SeedingService {
 		
 		createUnit(UnitSystemEnum.GENERIC, UnitTypeEnum.ITEM, UnitEnum.GENERIC_ITEM, "Item", "item(s)", 1d);
 		
-		// Seed FoodTemplate Entities
+		/**
+		 * -------------------------------------------------------------------------------------------------------------------
+		 * Seed FoodTemplate Entities
+		 * -------------------------------------------------------------------------------------------------------------------
+		 */
 		List<Measurement> measurements = new ArrayList<>(); // re-used for every food template
 		
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
@@ -153,7 +163,11 @@ public class SeedingService {
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 92d, false), createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false)});
 		createFoodTemplate(62, 0.3d, 16d, 0.6d, "Grapes", null, null, measurements, true, true);
 		
-		// Seed DishTemplate Entities
+		/**
+		 * -------------------------------------------------------------------------------------------------------------------
+		 * Seed DishTemplate Entities
+		 * -------------------------------------------------------------------------------------------------------------------
+		 */
 		
 		List<IngredientTemplate> ingredients = new ArrayList<>(); // re-used for every dish template
 		
@@ -175,9 +189,27 @@ public class SeedingService {
 		});
 		createDishTemplate("Ham & Turkey on Wheat", measurements, ingredients, true);
 		
+		/**
+		 * -------------------------------------------------------------------------------------------------------------------
+		 * Seed PlanTemplate Entities
+		 * -------------------------------------------------------------------------------------------------------------------
+		 */
 		
+		List<PlateTemplate> plates = new ArrayList<>(); // re-used for every plate template
 		
+		ingredients = Arrays.asList(new IngredientTemplate[] {
+			createIngredientTemplate("Eggs", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3d, false)),
+			createIngredientTemplate("Bacon", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)),
+			createIngredientTemplate("Protein Bars", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)),
+			createIngredientTemplate("Pretzels", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 5d, false)),
+			createIngredientTemplate("Rice", createMeasurement(unitMap.get(UnitEnum.CUP), 0.6d, false)),
+			createIngredientTemplate("Chicken Breast", createMeasurement(unitMap.get(UnitEnum.GRAM), 198.447d, false))
+		});
+		plates = Arrays.asList(new PlateTemplate[] {
+				createPlateTemplate("Ham & Turkey on Wheat", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)),
+		});
 		
+		createPlanTemplate(1295, 39.24d, 100.9d, 134.54d, ingredients, plates, true);
 		
 	}
 	
@@ -215,7 +247,6 @@ public class SeedingService {
 	}
 	
 	private FoodTemplate getFoodTemplateByName (String foodName) {
-//		return foodTemplateRepository.findById()
 		return foodTemplateMap.get(foodName);
 	}
 	
@@ -235,5 +266,29 @@ public class SeedingService {
 		dishTemplate.setIsTemplate(true);
 		dishTemplateMap.put(name, saveImmediately ? dishTemplateRepository.save(dishTemplate) : dishTemplate);
 		return dishTemplateMap.get(name);
+	}
+	
+	private DishTemplate getDishTemplateByName (String dishName) {
+		return dishTemplateMap.get(dishName);
+	}
+	
+	private PlateTemplate createPlateTemplate (String dishName, Measurement measurement) {
+		PlateTemplate plateTemplate = new PlateTemplate();
+		plateTemplate.setDish(getDishTemplateByName(dishName));;
+		plateTemplate.setMeasurement(measurement);
+		plateTemplate.setIsTemplate(true);
+		return plateTemplate;
+	}
+	
+	private PlanTemplate createPlanTemplate (Integer calories, Double fat, Double carbs, Double protein, List<IngredientTemplate> ingredients, List<PlateTemplate> plates, Boolean saveImmediately) {
+		PlanTemplate planTemplate = new PlanTemplate();
+		planTemplate.setCalories(calories);
+		planTemplate.setFat(fat);
+		planTemplate.setCarbs(carbs);
+		planTemplate.setProtein(protein);
+		planTemplate.setIngredients(ingredients);
+		planTemplate.setPlates(plates);
+		planTemplate.setIsTemplate(true);
+		return saveImmediately ? planTemplateRepository.save(planTemplate) : planTemplate;
 	}
 }
