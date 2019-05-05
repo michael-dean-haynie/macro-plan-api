@@ -144,6 +144,15 @@ public class SeedingService {
 		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 118d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)});
 		createFoodTemplate(105, 0.4d, 27d, 1.3d, "Banana", null, "Medium", measurements, true, true);
 		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.OUNCE), 1.4d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 37.5d, false), createMeasurement(unitMap.get(UnitEnum.CUP), .25d, false)});
+		createFoodTemplate(160, 1.5d, 37d, 0d, "Skittles", "Wrigley Company", "Original", measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 42d, false), createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 7d, false)});
+		createFoodTemplate(150, 0d, 38d, 0d, "Sweedish Fish", "Cadbury Adams Company", "Assorted", measurements, true, true);
+		
+		measurements = Arrays.asList(new Measurement[] {createMeasurement(unitMap.get(UnitEnum.GRAM), 92d, false), createMeasurement(unitMap.get(UnitEnum.CUP), 1d, false)});
+		createFoodTemplate(62, 0.3d, 16d, 0.6d, "Grapes", null, null, measurements, true, true);
+		
 		// Seed DishTemplate Entities
 		
 		List<IngredientTemplate> ingredients = new ArrayList<>(); // re-used for every dish template
