@@ -208,7 +208,16 @@ public class SeedingService {
 		plates = Arrays.asList(new PlateTemplate[] {
 				createPlateTemplate("Ham & Turkey on Wheat", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)),
 		});
+		createPlanTemplate(1295, 39.24d, 100.9d, 134.54d, ingredients, plates, true);
 		
+		
+		ingredients = Arrays.asList(new IngredientTemplate[] {
+			createIngredientTemplate("Eggs", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 3d, false)),
+			createIngredientTemplate("Bacon", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false))
+		});
+		plates = Arrays.asList(new PlateTemplate[] {
+				createPlateTemplate("Tuna Sandwich", createMeasurement(unitMap.get(UnitEnum.GENERIC_ITEM), 1d, false)),
+		});
 		createPlanTemplate(1295, 39.24d, 100.9d, 134.54d, ingredients, plates, true);
 		
 	}

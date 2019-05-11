@@ -1,5 +1,7 @@
 package com.codetudes.macroplanapi.endpoint;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,10 @@ public class PlanController {
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		planService.delete(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping
+	public List<PlanTemplateDTO> getAll() {
+		return planService.getAll();
 	}
 }

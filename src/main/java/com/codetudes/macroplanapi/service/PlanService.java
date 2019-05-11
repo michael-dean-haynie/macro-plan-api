@@ -1,5 +1,7 @@
 package com.codetudes.macroplanapi.service;
 
+import java.util.List;
+
 import com.codetudes.macroplanapi.contract.plan.PlanTemplateDTO;
 
 public interface PlanService {
@@ -10,4 +12,6 @@ public interface PlanService {
 	PlanTemplateDTO update(PlanTemplateDTO planTemplateDTO);
 	
 	void delete(Long id);
+	
+	List<PlanTemplateDTO> getAll();
 }

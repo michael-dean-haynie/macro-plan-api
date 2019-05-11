@@ -1,13 +1,17 @@
 package com.codetudes.macroplanapi.service.impl;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.codetudes.macroplanapi.contract.dish.DishTemplateDTO;
 import com.codetudes.macroplanapi.contract.plan.PlanTemplateDTO;
 import com.codetudes.macroplanapi.db.domain.plan.PlanTemplate;
 import com.codetudes.macroplanapi.db.repository.PlanTemplateRepository;
@@ -57,5 +61,12 @@ public class PlanServiceImpl implements PlanService {
 		}
 
 		planTemplateRepository.deleteById(id);
+	}
+	
+	@Override
+	public List<PlanTemplateDTO> getAll() {
+		List<PlanTemplate> result = planTemplateRepository.findAllByOrderByIdDesc();
+		Type dtoListType = new TypeToken<List<PlanTemplateDTO>>(){}.getType();
+		return mapper.map(result, dtoListType);
 	}
 }
